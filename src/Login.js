@@ -4,6 +4,12 @@ import "./Login.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const signIn = (e) => {
+    e.preventDefault();
+  };
+  const registerButton = (e) => {
+    e.preventDefault();
+  };
   const NewTabFunction = () => {
     window.open("https://github.com/YoussefPasha");
   };
@@ -20,11 +26,25 @@ function Login() {
         <h1>Sign-in</h1>
         <form>
           <h5 className="fontStylingStrings">E-mail</h5>
-          <input type="text" value={email} />
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
           <h5 className="fontStylingStrings">Password</h5>
-          <input type="password" value={password} />
-          <button className="login__signInButton">Sign in</button>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <button
+            type="submit"
+            onClick={signIn}
+            className="login__signInButton"
+          >
+            Sign in
+          </button>
         </form>
         <p>
           By Signing-in You Will have best design ever been made
@@ -37,7 +57,7 @@ function Login() {
             Youssef Pasha
           </button>
         </p>
-        <button className="login__registerButton">
+        <button onClick={registerButton} className="login__registerButton">
           Create Your Amazon Account
         </button>
       </div>
