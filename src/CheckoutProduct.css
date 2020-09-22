@@ -2,6 +2,8 @@
   display: flex;
   margin-top: 20px;
   margin-bottom: 20px;
+  padding: 10px;
+  background: #f5f5f5;
 }
 .checkoutProduct__info {
   padding-left: 20px;
