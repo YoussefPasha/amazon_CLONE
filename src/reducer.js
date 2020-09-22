@@ -13,9 +13,19 @@ const reducer = (state, action) => {
         basket: [...state.basket, action.item],
       };
     case "REMOVE_TO_BASKET":
+      const index = state.basket.findIndex(
+        (basketItem) => basketItem.id === action.id
+      );
+      let newBasket = [...state.basket];
+
+      if (index >= 0) {
+        newBasket.splice(index, 1);
+      } else {
+        console.warn(`can't rempve this ${action.id}`);
+      }
       return {
         ...state,
-        basket: state.basket.filter((item) => item.id !== action.id),
+        basket: newBasket,
       };
     default:
       return state;
