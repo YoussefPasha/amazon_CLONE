@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
+import { auth } from "./firebase";
 import "./Login.css";
 function Login() {
   const [email, setEmail] = useState("");
@@ -9,6 +10,10 @@ function Login() {
   };
   const registerButton = (e) => {
     e.preventDefault();
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((auth) => {})
+      .catch((error) => alert(error.message));
   };
   const NewTabFunction = () => {
     window.open("https://github.com/YoussefPasha");
@@ -27,16 +32,17 @@ function Login() {
         <form>
           <h5 className="fontStylingStrings">E-mail</h5>
           <input
+            className="inputStyling"
             type="text"
             value={email}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <h5 className="fontStylingStrings">Password</h5>
           <input
             type="password"
             value={password}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button
             type="submit"
