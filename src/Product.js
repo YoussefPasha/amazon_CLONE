@@ -9,8 +9,8 @@ function Product({ id, title, image, price, rating }) {
   const CustomToast = ({ imageToast }) => {
     return (
       <div className="NotifyCenter">
-        {title}
         <img src={image} alt="" />
+        {title}
       </div>
     );
   };

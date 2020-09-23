@@ -65,3 +65,15 @@
   display: flex;
   font-size: large;
 }
+.NotifyCenter {
+  display: flex;
+  height: auto;
+  width: auto;
+  font-weight: bolder;
+  font-style: normal;
+}
+.NotifyCenter > img {
+  height: 90px;
+  width: 100px;
+  margin: 20px;
+}
