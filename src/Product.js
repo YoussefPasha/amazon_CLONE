@@ -1,10 +1,22 @@
 import React from "react";
 import "./Product.css";
 import { useStateValue } from "./StateProvider";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 function Product({ id, title, image, price, rating }) {
   const [{ basket }, dispatch] = useStateValue();
-
+  const CustomToast = ({ imageToast }) => {
+    return (
+      <div className="NotifyCenter">
+        {title}
+        <img src={image} alt="" />
+      </div>
+    );
+  };
+  const notify = () => {
+    toast(<CustomToast />, { position: toast.POSITION.TOP_RIGHT });
+  };
   const addToBasket = () => {
     dispatch({
       type: "ADD_TO_BASKET",
@@ -34,7 +46,7 @@ function Product({ id, title, image, price, rating }) {
         </div>
       </div>
       <img src={image} alt=""></img>
-      <button onClick={addToBasket}>Add to Basket</button>
+      <button onClick={(addToBasket, notify)}>Add to Basket</button>
     </div>
   );
 }
