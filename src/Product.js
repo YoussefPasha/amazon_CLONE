@@ -15,7 +15,7 @@ function Product({ id, title, image, price, rating }) {
     );
   };
   const notify = () => {
-    toast(<CustomToast />, { position: toast.POSITION.TOP_RIGHT });
+    toast(<CustomToast />, { position: toast.POSITION.BOTTOM_RIGHT });
   };
   const addToBasket = () => {
     dispatch({
@@ -28,6 +28,7 @@ function Product({ id, title, image, price, rating }) {
         rating: rating,
       },
     });
+    notify();
   };
   return (
     <div className="product">
@@ -46,7 +47,7 @@ function Product({ id, title, image, price, rating }) {
         </div>
       </div>
       <img src={image} alt=""></img>
-      <button onClick={(addToBasket, notify)}>Add to Basket</button>
+      <button onClick={addToBasket}>Add to Basket</button>
     </div>
   );
 }
