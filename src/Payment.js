@@ -1,11 +1,11 @@
-import { Link, useHistory } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import CheckoutProduct from "./CheckoutProduct";
+import React, { useState, useEffect } from "react";
 import "./Payment.css";
-import CurrencyFormat from "react-currency-format";
 import { useStateValue } from "./StateProvider";
+import CheckoutProduct from "./CheckoutProduct";
+import { Link, useHistory } from "react-router-dom";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "./reducer";
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "./axios";
 function Payment() {
   // eslint-disable-next-line no-lone-blocks
@@ -14,7 +14,7 @@ function Payment() {
   }
   const [{ basket, user }, dispatch] = useStateValue();
   const history = useHistory();
-  const stripe = useStripe;
+  const stripe = useStripe();
   const elements = useElements();
   const [processing, setProcessing] = useState("");
   const [succeeded, setSucceeded] = useState(false);
@@ -46,7 +46,7 @@ function Payment() {
     setProcessing(true);
 
     const payload = await stripe
-      .confiremCardPayment(clientSecret, {
+      .confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
         },
@@ -55,6 +55,11 @@ function Payment() {
         setSucceeded(true);
         setError(null);
         setProcessing(false);
+
+        dispatch({
+          type: "EMPTY_BASKET",
+        });
+
         history.replace("/orders");
       });
   };
@@ -112,10 +117,10 @@ function Payment() {
                   value={getBasketTotal(basket)}
                   displayType={"text"}
                   thousandSeparator={true}
-                  prefix={"€"}
+                  prefix={"$"}
                 />
                 <button disabled={processing || disabled || succeeded}>
-                  <span>{processing ? <p>Processing</p> : "Buy Now "}</span>
+                  <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
                 </button>
               </div>
               {error && <div>{error}</div>}
