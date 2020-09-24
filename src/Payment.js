@@ -28,14 +28,15 @@ function Payment() {
 
   useEffect(() => {
     const getClientSecret = async () => {
-      const respone = await axios({
+      const response = await axios({
         method: "post",
-        url: `/payment/create?total=${getBasketTotal(basket) * 100}`,
+        url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
       });
-      setClientSecret(respone.data.clientSecret);
+      setClientSecret(response.data.clientSecret);
     };
     getClientSecret();
   }, [basket]);
+  console.log("SECRET>>>", clientSecret);
   // eslint-disable-next-line no-lone-blocks
   {
     /*Functions */
